@@ -1,0 +1,1999 @@
+
+$ git config --global user.name "dexterdead"
+$ git config --global user.email "1039384073@qq.com"
+
+
+➜  learn git config -l
+➜  learn git config --global user.name
+➜  learn git config --global user.name "dexterdead"
+➜  learn git config --global user.email "1039384073@qq.com"
+➜  learn git config -l
+user.name=dexterdead
+user.email=10
+
+
+total 0
+➜  learngit git init
+Initialized empty Git repository in /home/coding/learngit/.git/
+➜  learngit git:(master)
+
+
+在git版本控制目录下建一个文件
+➜  learngit git:(master) vi readme.txt
+➜  learngit git:(master) ✗ ll
+total 4.0K
+-rw-r--r-- 1 coding coding 55 Aug 28 10:57 readme.txt
+
+添加到仓库
+➜  learngit git:(master) ✗ git add readme.txt
+➜  learngit git:(master) ✗ ll
+total 4.0K
+-rw-r--r-- 1 coding coding 55 Aug 28 10:57 readme.txt
+➜  learngit git:(master) ✗
+
+
+提交到仓库
+➜  learngit git:(master) ✗ git commit -m "wrote a readme file"
+[master (root-commit) 47abd32] wrote a readme file
+ 1 file changed, 2 insertions(+)
+ create mode 100644 readme.txt
+➜  learngit git:(master)
+
+
+在没有add的情况下，直接commit
+-rw-r--r-- 1 coding coding 55 Aug 28 10:57 readme.txt
+➜  learngit git:(master) vi file1.txt
+➜  learngit git:(master) ✗ vi file2.txt
+➜  learngit git:(master) ✗ vi file3.txt
+➜  learngit git:(master) ✗ git commit -m 'test commit with no add'
+On branch master
+Untracked files:
+        file1.txt
+        file2.txt
+        file3.txt
+
+nothing added to commit but untracked files present
+➜  learngit git:(master) ✗
+
+
+只添加了file1.txt， 然后提交
+➜  learngit git:(master) ✗ git add file1.txt
+➜  learngit git:(master) ✗ git commit -m 'add file1.txt and commit'
+[master 13e4048] add file1.txt and commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1.txt
+➜  learngit git:(master) ✗
+
+
+
+添加了file1.txt和file2.txt后，提交
+➜  learngit git:(master) ✗ git add file2.txt file3.txt
+➜  learngit git:(master) ✗ git commit -m 'add and commit file1.txt and file2.txt'
+[master 522cf51] add and commit file1.txt and file2.txt
+ 2 files changed, 5 insertions(+)
+ create mode 100644 file2.txt
+ create mode 100644 file3.txt
+➜  learngit git:(master)
+
+
+修改了readme.txt文件后，使用git status命令可以检查文件状态
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗
+
+
+
+
+➜  learngit git:(master) ✗ git diff readme.txt
+➜  learngit git:(master) ✗
+diff --git a/readme.txt b/readme.txt
+index 46d49bf..9247db6 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
++Git is a distributed version control system.
+ Git is free software.
+(END)
+
+重新提交
+➜  learngit git:(master) ✗ git add readme.txt
+➜  learngit git:(master) ✗ git commit -m 'update readme.txt add a distributed description'
+[master 81f7bc6] update readme.txt add a distributed description
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+➜  learngit git:(master)
+
+
+➜  learngit git:(master) git status
+On branch master
+nothing to commit, working directory clean
+➜  learngit git:(master)
+
+
+
+再修改一次
+➜  learngit git:(master) vi readme.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗ git diff readme.txt
+➜  learngit git:(master) ✗ git add readme.txt
+
+添加后，再git status可以看到有文件是可以被提交的
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗
+
+
+
+git log可以查看日志
+commit 81f7bc685055c7e3eccbac74305154f29d3ba3fc
+Author: dexterdead <1039384073@qq.com>
+Date:   Tue Aug 28 11:22:07 2018 +0000
+
+    update readme.txt add a distributed description
+
+commit 522cf51e3b879e4f54e630440115423df17407d3
+Author: dexterdead <1039384073@qq.com>
+Date:   Tue Aug 28 11:08:49 2018 +0000
+
+    add and commit file1.txt and file2.txt
+
+commit 13e404864b05ce19596032d1168aad96b72c2aea
+Author: dexterdead <1039384073@qq.com>
+Date:   Tue Aug 28 11:07:11 2018 +0000
+
+    add file1.txt and commit
+
+commit 47abd32ce324ac130ffbb4c8f88abece9ff92831
+Author: dexterdead <1039384073@qq.com>
+Date:   Tue Aug 28 11:00:52 2018 +0000
+
+    wrote a readme file
+(END)
+
+
+
+
+执行日志查看，简洁格式化输出git log --pretty=oneline
+a69a8b5e28aacdb64e3de250f0be437b492571ca add GPL description
+81f7bc685055c7e3eccbac74305154f29d3ba3fc update readme.txt add a distributed description
+522cf51e3b879e4f54e630440115423df17407d3 add and commit file1.txt and file2.txt
+13e404864b05ce19596032d1168aad96b72c2aea add file1.txt and commit
+47abd32ce324ac130ffbb4c8f88abece9ff92831 wrote a readme file
+(END)
+
+
+HEAD 当前版本
+HEAD^ 上一个版本
+HEAD^^ 上上一个版本
+HEAD~100 上100个版本
+
+
+回退到上一个版本
+git reset --hard HEAD^
+
+➜  learngit git:(master) git reset --hard HEAD^
+HEAD is now at 81f7bc6 update readme.txt add a distributed description
+➜  learngit git:(master) more readme.txt
+Git is a distributed version control system.
+Git is free software.
+➜  learngit git:(master)
+
+再次查看git log，发现删除了最早的那个版本
+81f7bc685055c7e3eccbac74305154f29d3ba3fc update readme.txt add a distributed description
+522cf51e3b879e4f54e630440115423df17407d3 add and commit file1.txt and file2.txt
+13e404864b05ce19596032d1168aad96b72c2aea add file1.txt and commit
+47abd32ce324ac130ffbb4c8f88abece9ff92831 wrote a readme file
+(END)
+
+
+如果还需要回退到最早的那个版本，可以写成如下，版本号，只需要前几位即可
+git reset --hard a69a8b5e
+
+➜  learngit git:(master) git reset --hard a69a8b5e
+HEAD is now at a69a8b5 add GPL description
+➜  learngit git:(master) more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+➜  learngit git:(master)
+
+
+git reflog可以查看操作的日志
+a69a8b5 HEAD@{0}: reset: moving to a69a8b5e
+81f7bc6 HEAD@{1}: reset: moving to HEAD^
+a69a8b5 HEAD@{2}: commit: add GPL description
+81f7bc6 HEAD@{3}: commit: update readme.txt add a distributed description
+522cf51 HEAD@{4}: commit: add and commit file1.txt and file2.txt
+13e4048 HEAD@{5}: commit: add file1.txt and commit
+47abd32 HEAD@{6}: commit (initial): wrote a readme file
+(END)
+
+
+
+版本库（Repository）
+工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+
+git-repo
+
+分支和HEAD的概念我们以后再讲。
+
+前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：
+
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+
+你可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。
+
+俗话说，实践出真知。现在，我们再练习一遍，先对readme.txt做个修改，比如加上一行内容：
+
+
+
+
+
+
+修改readme.txt和新增一个LICENSE文件
+➜  learngit git:(master) vi readme.txt
+➜  learngit git:(master) ✗ vi LICENSE
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        LICENSE
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗
+
+
+
+添加到暂存区之后再查看status
+➜  learngit git:(master) ✗ git add readme.txt LICENSE
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   LICENSE
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗
+
+
+
+提交两个文件：
+➜  learngit git:(master) ✗ git commit -m 'update readme.txt and add LICENSE file.'
+[master 83def23] update readme.txt and add LICENSE file.
+ 2 files changed, 2 insertions(+)
+ create mode 100644 LICENSE
+➜  learngit git:(master) git status
+On branch master
+nothing to commit, working directory clean
+➜  learngit git:(master)
+
+
+
+更新一个文件
+➜  learngit git:(master) vi readme.txt
+➜  learngit git:(master) ✗ git add readme.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗
+
+
+
+在add了之后，再修改文件，并提交
+➜  learngit git:(master) ✗ vi readme.txt
+➜  learngit git:(master) ✗ git commit -m 'update readme.txt add tracked test.'
+[master 3987735] update readme.txt add tracked test.
+ 1 file changed, 1 insertion(+)
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+➜  learngit git:(master) ✗
+
+git diff可以查看到，版本库上只有add之前的文件内容
+diff --git a/readme.txt b/readme.txt
+index 76d770f..a9c5755 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,4 +1,4 @@
+ Git is a distributed version control system.
+ Git is free software distributed under the GPL.
+ Git has a mutable index called stage.
+-Git tracks changes.
++Git tracks changes of files.
+(END)
+
+
+查看git status可以看到文件修改还没有提交
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+
+那怎么提交第二次修改呢？你可以继续git add再git commit，也可以别着急提交第一次修改，先git add第二次修改，再git commit，就相当于把两次修改合并后一块提交了：
+
+
+
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+test checkout
+
+查看文件和版本库的区别：git diff readme.txt
+diff --git a/readme.txt b/readme.txt
+index 76d770f..601555a 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,4 +1,5 @@
+ Git is a distributed version control system.
+ Git is free software distributed under the GPL.
+ Git has a mutable index called stage.
+-Git tracks changes.
++Git tracks changes of files.
++test checkout
+(END)
+
+
+
+
+丢弃工作区的文件更新内容，同步成版本库最新版本
+➜  learngit git:(master) ✗ git checkout -- readme.txt
+➜  learngit git:(master) more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+➜  learngit git:(master)
+
+
+
+
+测试修改了文件后，放到stage，再checkout
+➜  learngit git:(master) vi readme.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗ git add readme.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗
+
+
+
+
+添加到stage，发现checkout并不能更新到版本库上的版本
+➜  learngit git:(master) ✗ git add readme.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗ git diff readme.txt
+➜  learngit git:(master) ✗ git checkout -- readme.txt
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗
+
+
+
+提示版本库已经是加上了那句“ test add to the stage.”
+diff --git a/readme.txt b/readme.txt
+index 34f3ad0..6a3b432 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -3,3 +3,4 @@ Git is free software distributed under the GPL.
+ Git has a mutable index called stage.
+ Git tracks changes.
+ test add to the stage.
++test again
+(END)
+
+
+把工作区的文件更新到stage的版本了
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+test again
+➜  learngit git:(master) ✗ git diff readme.txt
+➜  learngit git:(master) ✗ git checkout -- readme.txt
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗
+
+
+
+
+git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令，我们在后面的分支管理中会再次遇到git checkout命令。
+
+
+文件是还在stage
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   readme.txt
+
+➜  learngit git:(master) ✗
+
+这个时候使用diff查看不到有变化的内容
+
+
+可以把stage的文件修改从stage中撤销
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗ git reset HEAD readme.txt
+Unstaged changes after reset:
+M       readme.txt
+➜  learngit git:(master) ✗ more readme.txt
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+test add to the stage.
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗
+
+
+
+
+diff --git a/readme.txt b/readme.txt
+index 76d770f..34f3ad0 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -2,3 +2,4 @@ Git is a distributed version control system.
+ Git is free software distributed under the GPL.
+ Git has a mutable index called stage.
+ Git tracks changes.
++test add to the stage.
+(END)
+
+
+再把工作区的文件回退到版本库中最新版本
+➜  learngit git:(master) ✗ git checkout -- readme.txt
+➜  learngit git:(master) git status
+On branch master
+nothing to commit, working directory clean
+➜  learngit git:(master)
+
+
+
+
+git reset HEAD <file> 从stage撤回到工作区
+git checkout -- file 把工作区的文件撤回到版本库的最新版本
+
+
+删除文件后，git能检测出文件被删除
+➜  learngit git:(master) rm -f testrm.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        deleted:    testrm.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗
+
+
+如果是要从版本库删除文件：
+先rm掉版本库的文件，然后再提交修改
+➜  learngit git:(master) ✗ git rm testrm.txt
+rm 'testrm.txt'
+➜  learngit git:(master) ✗ git commit -m 'deleted testrm.txt'
+[master a36ef0d] deleted testrm.txt
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 testrm.txt
+➜  learngit git:(master)
+
+如果是误删除，那就可以从版本库更新到工作区
+➜  learngit git:(master) rm -f file1.txt
+➜  learngit git:(master) ✗ git status
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        deleted:    file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  learngit git:(master) ✗ ll
+total 16K
+-rw-r--r-- 1 coding coding  17 Aug 28 11:04 file2.txt
+-rw-r--r-- 1 coding coding  12 Aug 28 11:04 file3.txt
+-rw-r--r-- 1 coding coding  22 Aug 28 12:03 LICENSE
+-rw-r--r-- 1 coding coding 151 Aug 28 12:44 readme.txt
+➜  learngit git:(master) ✗ git checkout -- file1.txt
+➜  learngit git:(master) ll
+total 20K
+-rw-r--r-- 1 coding coding  12 Aug 28 12:52 file1.txt
+-rw-r--r-- 1 coding coding  17 Aug 28 11:04 file2.txt
+-rw-r--r-- 1 coding coding  12 Aug 28 11:04 file3.txt
+-rw-r--r-- 1 coding coding  22 Aug 28 12:03 LICENSE
+-rw-r--r-- 1 coding coding 151 Aug 28 12:44 readme.txt
+➜  learngit git:(master)
+
+
+
+
+github上创建了一个learngit仓库后：
+Quick setup — if you’ve done this kind of thing before
+or	
+HTTPS
+SSH
+
+https://github.com/dextersmaker/learngit.git
+We recommend every repository include a README, LICENSE, and .gitignore.
+
+…or create a new repository on the command line
+echo "# learngit" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/dextersmaker/learngit.git
+git push -u origin master
+…or push an existing repository from the command line
+git remote add origin https://github.com/dextersmaker/learngit.git
+git push -u origin master
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+
+
+
+git remote add origin git@github.com:michaelliao/learngit.git
+
+把本地的git项目推送到远程github上的origin
+➜  learngit git:(master) git remote add origin https://github.com/dextersmaker/learngit.git
+➜  learngit git:(master) git push -u origin master
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Counting objects: 27, done.
+Compressing objects: 100% (21/21), done.
+Writing objects: 100% (27/27), 2.12 KiB | 0 bytes/s, done.
+Total 27 (delta 10), reused 0 (delta 0)
+remote: Resolving deltas: 100% (10/10), done.
+To https://github.com/dextersmaker/learngit.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+➜  learngit git:(master)
+
+
+在github上就可以看到这个文件是一致的了
+
+
+把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+git push origin master
+
+
+这里我的ssh和github上的不一致，导致有点问题
+
+
+➜  learngit git:(master) git push origin master
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Counting objects: 3, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 302 bytes | 0 bytes/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/dextersmaker/learngit.git
+   a36ef0d..40a57ab  master -> master
+➜  learngit git:(master)
+
+
+➜  .ssh more id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAwSMvED3M0yeqBYr0/Sq8abcLNoN90giHp4ice/DPb+6PTz+c
+.....
+dTgsEGXM7d+U+EdgvEvDWagNUTyA0wUaqe7+wrE13LtQtJ8nT8bd
+-----END RSA PRIVATE KEY-----
+➜  .ssh
+
+
+➜  .ssh more id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBIy8QPczTJ6oFivT9Krxptws2g33SCIeniJx78M9v7o9PP5wGXL3h6vSUphG8TRZZN+zejfL5nICWw4AN2IUwyWhTUbYsqj4+Yz9eS69hcTAdEZQoZmhZZkTyWLDHbNSwTPOwFx1gwH6QU0AlQ
+JSpgqAJoVdQziwh0lYX7KMlo9GvS/v0TT2G9WiUCsZbcfNIoyi2gRonofaEJUU4uguS5RbZkyrtZnx09F8X3NdALaFKbCUmfxU7Ii7AskUeA1odfxQxEy13M1OoiZS3659ttxcItYxjB2JYuaRhctLmX98U+T+kG5Gwu6+HgBZGLmSEoLxkEXnpd5
+tGxJTPFOg9 dexterdead@WebIDE
+➜  .ssh
+
+
+本地的用户是 dexterdead@WebIDE
+配置的git信息是这个
+➜  .ssh git config -l
+user.name=dexterdead
+user.email=1039384073@qq.com
+➜  .ssh
+
+
+ssh-keygen -t rsa -C "1039384073@qq.com"
+重新写了一个ssh，这里应该是把旧的给覆盖了
+➜  ~ ssh-keygen -t rsa -C "1039384073@qq.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/coding/.ssh/id_rsa):
+/home/coding/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/coding/.ssh/id_rsa.
+Your public key has been saved in /home/coding/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:Yb3MWoa+7DxxbMt5atQq1Zu4CRiULWU3b/6T9eqGmrg 1039384073@qq.com
+The key's randomart image is:
++---[RSA 2048]----+
+|        o o      |
+|       = o o     |
+|      + + . o    |
+|     . o = +     |
+|      . S.*o.   .|
+|       +.+* o. o.|
+|      . +B = ++ .|
+|       oo+Bo= .o |
+|       .E=*= oo  |
++----[SHA256]-----+
+
+➜  .ssh more id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDK9jatL1ouWEE0711JqYKON1foKKik3oFeJ9ACPE4/G7WZSJSusH7Au9exufxCGnC1ctiuLLoCNuWslNCNBSRCi+Q9BMmt0J7714cX/60bY30qcaqjQa4SPnG2ZbZXfJpdYIgTfMYRbkBWi2xJy
+YhoYEN+XtGX3bU5CqHJAuowMqiKEKLzGtt/oj9fF4KtL8fnWvdj/ssaFxoc56dVkoFSLPUfI4Qbqc7jdL740WfewNHh3GC+3iNczPk6jEXTqe44IjgIK0D+FqYVLinc/oGyd+rpGV4DUdbkKK/IOeS4j2mPInVQLGx+9sEWyIgHKkoL1s9eEI2Hnp
+XKiWYDDay3 1039384073@qq.com
+
+重新在github提交了 ssh keys
+1039384073@qq.com
+Fingerprint: b3:a5:e8:57:4a:e6:5b:ed:6f:dc:2f:d9:9d:89:1c:30
+Added on 29 Aug 2018
+Never used — Read/write
+
+
+登陆GitHub，创建一个新的仓库，名字叫gitskills
+远程库已经准备好了，下一步是用命令git clone克隆一个本地库
+
+git clone https://github.com/dextersmaker/gitskills.git
+
+自动建了gitskills目录：
+➜  ~ mkdir testgit
+➜  ~ cd testgit
+➜  testgit ll
+total 0
+➜  testgit git clone https://github.com/dextersmaker/gitskills.git
+Cloning into 'gitskills'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+Checking connectivity... done.
+➜  testgit ll
+total 4.0K
+drwxr-xr-x 3 coding coding 4.0K Aug 29 07:39 gitskills
+➜  testgit
+
+
+HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。
+
+
+当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上：
+
+
+
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+
+$ git branch dev
+$ git checkout dev
+Switched to branch 'dev'
+
+
+新建一个分支，并切换到分支
+➜  gitskills git:(master) git branch dev
+➜  gitskills git:(master) git checkout dev
+Switched to branch 'dev'
+➜  gitskills git:(dev) ll
+total 4.0K
+-rw-r--r-- 1 coding coding 11 Aug 29 07:39 README.md
+➜  gitskills git:(dev)
+➜  gitskills git:(dev) git branch
+* dev
+  master
+➜  gitskills git:(dev)
+
+
+切换到master分支
+➜  gitskills git:(dev) git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+➜  gitskills git:(master)
+➜  gitskills git:(master) git branch
+  dev
+* master
+➜  gitskills git:(master)
+
+文件和dev上的版本不一致
+-rw-r--r-- 1 coding coding 11 Aug 29 09:10 README.md
+➜  gitskills git:(master) more README.md
+# gitskills
+➜  gitskills git:(master)
+
+
+合并dev分支的版本到当前分支
+git merge dev
+
+➜  gitskills git:(master) git merge dev
+Updating c60f732..a00d327
+Fast-forward
+ README.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+➜  gitskills git:(master)
+
+Fast-forward信息，Git告诉我们，这次合并是“快进模式”，也就是直接把master指向dev的当前提交，所以合并速度非常快
+
+
+删除dev分支
+git branch -d dev
+
+➜  gitskills git:(master) git branch -d dev
+Deleted branch dev (was a00d327).
+➜  gitskills git:(master) git branch
+* master
+➜  gitskills git:(master)
+
+
+
+
+
+Git鼓励大量使用分支：
+
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+
+
+
+切换到master分支：
+
+$ git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 1 commit.   ===提示比origin版本要超前一个提交
+  (use "git push" to publish your local commits)
+
+
+在mster分支修改了readme.txt并已经提交
+feature1分支也修改了readme.txt并已经提交
+
+合并时报错
+➜  gitskills git:(master) git merge feature1
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+➜  gitskills git:(master) ✗
+
+➜  gitskills git:(master) ✗ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  gitskills git:(master) ✗
+
+git diff可以查看到冲突
+===========git diff README.md===========
+diff --cc README.md
+index 810b3da,84aaf5f..0000000
+--- a/README.md
++++ b/README.md
+@@@ -1,2 -1,2 +1,6 @@@
+  # gitskills
+++<<<<<<< HEAD
+ +# Creating a new branch is quick & simple.
+++=======
++ # Creating a new branch is quick AND simple.
+++>>>>>>> feature1
+(END)
+
+直接查看文件可以看到冲突
+➜  gitskills git:(master) ✗ more README.md
+# gitskills
+<<<<<<< HEAD
+# Creating a new branch is quick & simple.
+=======
+# Creating a new branch is quick AND simple.
+>>>>>>> feature1
+➜  gitskills git:(master) ✗
+
+
+直接修改冲突的文件后，再看git diff ，可以看到，git会把它当成两个分支都统一的版本
+
+diff --cc README.md
+index 810b3da,84aaf5f..0000000
+--- a/README.md
++++ b/README.md
+@@@ -1,2 -1,2 +1,2 @@@
+  # gitskills
+- # Creating a new branch is quick & simple.
+ -# Creating a new branch is quick AND simple.
+++# Creating a new branch is quick and simple.
+(END)
+
+git status还是会标记正在冲突
+➜  gitskills git:(master) ✗ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  gitskills git:(master) ✗
+
+
+
+重新添加提交，显示冲突已经解决
+➜  gitskills git:(master) ✗ git add README.md
+➜  gitskills git:(master) ✗ git commit -m 'resolve conflict'
+[master 31fa792] resolve conflict
+➜  gitskills git:(master) git status
+On branch master
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+➜  gitskills git:(master)
+
+
+
+但是可以看到连个分支的内容还是不一样的，所以所有的分支都要统一修改
+➜  gitskills git:(master) more README.md
+# gitskills
+# Creating a new branch is quick and simple.
+➜  gitskills git:(master) git checkout feature1
+Switched to branch 'feature1'
+➜  gitskills git:(feature1) more README.md
+# gitskills
+# Creating a new branch is quick AND simple.
+➜  gitskills git:(feature1)
+
+
+feature1分支：
+git log --graph --pretty=oneline --abbrev-commit
+* 6c89fed resolve conflict feature1
+* b99d1e7 update readme
+* a00d327 add a comment
+* c60f732 Initial commit
+(END)
+
+
+master分支：
+git log --graph --pretty=oneline --abbrev-commit
+*   31fa792 resolve conflict
+|\
+| * b99d1e7 update readme
+* | bee7c7f update readme master
+|/
+* a00d327 add a comment
+* c60f732 Initial commit
+(END)
+
+
+git log --graph图形化输出日志信息
+git log --graph
+*   commit 31fa792e40037d7af7976dba8d2e47220c47c540
+|\  Merge: bee7c7f b99d1e7
+| | Author: dexterdead <1039384073@qq.com>
+| | Date:   Wed Aug 29 12:07:48 2018 +0000
+| |
+| |     resolve conflict
+| |
+| * commit b99d1e78b78ed77a0f94d6183cef7161a0f3da68
+| | Author: dexterdead <1039384073@qq.com>
+| | Date:   Wed Aug 29 11:46:04 2018 +0000
+| |
+| |     update readme
+| |
+* | commit bee7c7f6d8f350d75b4c3e2857d96ecd07296d1a
+|/  Author: dexterdead <1039384073@qq.com>
+|   Date:   Wed Aug 29 11:47:55 2018 +0000
+|
+|       update readme master
+|
+* commit a00d3272e2e662d9a59fccbd6faf84bd8d85576e
+| Author: dexterdead <1039384073@qq.com>
+| Date:   Wed Aug 29 09:10:03 2018 +0000
+|
+|     add a comment
+|
+* commit c60f732be898fdfb5809f9983feae8921a36909c
+  Author: dextersmaker <1039384073@qq.com>
+  Date:   Wed Aug 29 10:55:32 2018 +0800
+
+      Initial commit
+(END)
+
+
+
+
+
+再改了一次，可以看到之前的master解决的冲突的一次，并没有统一到一个版本，只是图上显示合并到了一个版本（31fa792），推测是因为使用了merge命令才如此显示，但是第二次修改了feature1，它还是在b99d1e7的基础上改的feature1
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+|\ \
+| |/
+| * b99d1e7 update readme
+* | bee7c7f update readme master
+|/
+* a00d327 add a comment
+* c60f732 Initial commit
+
+feature1的版本图
+
+* 29af735 add a comment in feature1
+* 6c89fed resolve conflict feature1
+* b99d1e7 update readme
+* a00d327 add a comment
+* c60f732 Initial commit
+(END)
+
+
+准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：
+git merge --no-ff -m "merge with no-ff" dev
+
+➜  gitskills git:(master) git merge --no-ff -m 'merge in noff' dev
+Merge made by the 'recursive' strategy.
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+➜  gitskills git:(master)
+
+
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+
+
+
+*   2dba88d merge in noff
+|\
+| * 4a3f6cb add a comment by dev.
+|/
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+|\ \
+| |/
+| * b99d1e7 update readme
+* | bee7c7f update readme master
+|/
+* a00d327 add a comment
+* c60f732 Initial commit
+(END)
+
+
+
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+
+
+新建了一个文件，同时修改了一个文件
+➜  gitskills git:(dev) vi newfile.py
+➜  gitskills git:(dev) ✗ ll
+total 8.0K
+-rw-r--r-- 1 coding coding 41 Aug 29 13:39 newfile.py
+-rw-r--r-- 1 coding coding 97 Aug 29 13:37 README.md
+➜  gitskills git:(dev) ✗ vi README.md
+➜  gitskills git:(dev) ✗ git status
+On branch dev
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        newfile.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  gitskills git:(dev) ✗
+
+使用git stash暂存一下工作区，相当于屏蔽了当前分支的修改
+➜  gitskills git:(dev) ✗ git stash
+Saved working directory and index state WIP on dev: 4a3f6cb add a comment by dev.
+HEAD is now at 4a3f6cb add a comment by dev.
+➜  gitskills git:(dev) ✗
+
+但是这个未添加到stage的还是要先添加，添加到stage后，不用提交，再stash一下，可以看到工作区是clean的
+➜  gitskills git:(dev) ✗ git add newfile.py
+➜  gitskills git:(dev) ✗ git status
+On branch dev
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   newfile.py
+
+➜  gitskills git:(dev) ✗ git stash
+Saved working directory and index state WIP on dev: 4a3f6cb add a comment by dev.
+HEAD is now at 4a3f6cb add a comment by dev.
+➜  gitskills git:(dev) git status
+On branch dev
+nothing to commit, working directory clean
+➜  gitskills git:(dev)
+
+
+切换回master，并新建一个bug修复分支，同时切换
+➜  gitskills git:(dev) git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 12 commits.
+  (use "git push" to publish your local commits)
+➜  gitskills git:(master) git checkout -b issue-102
+Switched to a new branch 'issue-102'
+➜  gitskills git:(issue-102)
+
+
+修复一个bug
+➜  gitskills git:(issue-102) vi README.md
+➜  gitskills git:(issue-102) ✗ git add README.md
+➜  gitskills git:(issue-102) ✗ git commit -m 'fixed a bug by issue-102'
+[issue-102 aecd8f3] fixed a bug by issue-102
+ 1 file changed, 1 insertion(+)
+➜  gitskills git:(issue-102)
+
+
+合并issue-102
+➜  gitskills git:(issue-102) git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 12 commits.
+  (use "git push" to publish your local commits)
+➜  gitskills git:(master) git merge --no-ff -m 'merge issue-102' issue-102
+Merge made by the 'recursive' strategy.
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+➜  gitskills git:(master)
+
+
+切换到dev分支
+➜  gitskills git:(master) git checkout dev
+Switched to branch 'dev'
+➜  gitskills git:(dev) git status
+On branch dev
+nothing to commit, working directory clean
+➜  gitskills git:(dev) git stash list
+➜  gitskills git:(dev)
+
+stash@{0}: WIP on dev: 4a3f6cb add a comment by dev.
+stash@{1}: WIP on dev: 4a3f6cb add a comment by dev.
+(END)
+
+
+git stash apply 恢复stash
+git stash drop 删除stash
+git stash pop 恢复同时删除stash
+
+恢复同时删除stash
+➜  gitskills git:(dev) git stash pop
+On branch dev
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   newfile.py
+
+Dropped refs/stash@{0} (fd1b84be7dda2f498c64a6db695ed079a5ded20e)
+➜  gitskills git:(dev) ✗
+
+可以看到还有一个stash
+stash@{0}: WIP on dev: 4a3f6cb add a comment by dev.
+(END)
+
+可以看到还有一个是添加到stage但是还没有commit的
+➜  gitskills git:(dev) ✗ git status
+On branch dev
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   newfile.py
+
+➜  gitskills git:(dev) ✗
+
+
+指定恢复到特定的stash
+$ git stash apply stash@{0}
+
+
+可以看到恢复到新文件还没有add之前的保存的stash
+➜  gitskills git:(dev) ✗ git stash apply stash@{0}
+On branch dev
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   newfile.py
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+➜  gitskills git:(dev) ✗
+
+删除最早的stash
+➜  gitskills git:(dev) ✗ git stash drop
+Dropped refs/stash@{0} (2c918337e1d2016f6c2def9d19edd16da2b1b400)
+➜  gitskills git:(dev) ✗
+
+git stash list显示已经为空
+
+
+
+已经有17个commits在本地了
+➜  gitskills git:(master) git status
+On branch master
+Your branch is ahead of 'origin/master' by 17 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+➜  gitskills git:(master)
+
+提交到origin
+git push origin master
+
+
+还是要输入用户名密码
+➜  gitskills git:(master) git push origin master
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Counting objects: 40, done.
+Compressing objects: 100% (29/29), done.
+Writing objects: 100% (40/40), 3.46 KiB | 0 bytes/s, done.
+Total 40 (delta 11), reused 0 (delta 0)
+remote: Resolving deltas: 100% (11/11), done.
+To https://github.com/dextersmaker/gitskills.git
+   c60f732..7833ccd  master -> master
+➜  gitskills git:(master)
+
+
+这个feature-vulcan 还没有merge到dev，直接删除会提示用-D来删除
+➜  gitskills git:(dev) git branch -d feature-vulcan
+error: The branch 'feature-vulcan' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
+➜  gitskills git:(dev) git branch -D feature-vulcan
+Deleted branch feature-vulcan (was ea91639).
+➜  gitskills git:(dev)
+
+
+
+➜  gitskills git:(dev) git remote
+origin
+➜  gitskills git:(dev) git remote -v
+origin  https://github.com/dextersmaker/gitskills.git (fetch)
+origin  https://github.com/dextersmaker/gitskills.git (push)
+➜  gitskills git:(dev)
+
+
+
+指定推送master分支到远程origin
+git push origin master
+
+
+=========windows==这个是使用github=======
+git clone https://github.com/dextersmaker/gitskills.git
+
+F:\> cd learngit
+F:\learngit> git clone https://github.com/dextersmaker/gitskills.git
+Cloning into 'gitskills'...
+fatal: unable to access 'https://github.com/dextersmaker/gitskills.git/': error:
+1407742E:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert protocol version
+F:\learngit>
+
+
+
+重新安装了一个git，进入git bash
+在git的终端执行的命令：
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit
+$ git clone https://github.com/dextersmaker/gitskills.git
+Cloning into 'gitskills'...
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (19/19), done.
+remote: Total 43 (delta 11), reused 40 (delta 11), pack-reused 0
+Unpacking objects: 100% (43/43), done.
+
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit
+$
+
+
+
+git push origin dev
+
+把dev推送到origin上
+➜  gitskills git:(dev) git push origin dev
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/dextersmaker/gitskills.git
+ * [new branch]      dev -> dev
+➜  gitskills git:(dev)
+
+
+这个在windows的git bash 下checkout有问题
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (master)
+$ git checkout -b dev origin/dev
+fatal: 'origin/dev' is not a commit and a branch 'dev' cannot be created from it
+
+git checkout -b origin/dev
+
+
+
+重新拉取数据，git pull ，然后再切回分支
+
+$ git pull
+From https://github.com/dextersmaker/gitskills
+ * [new branch]      dev        -> origin/dev
+Already up to date.
+
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (master)
+$
+
+
+可以了，猜测是因为第一次clone到windows时，linux还没有提交到github。导致在后来linux push了dev后，在windows找不到这个dev的分支，必须重新pull一下
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (master)
+$ git checkout -b dev origin/dev
+Switched to a new branch 'dev'
+Branch 'dev' set up to track remote branch 'dev' from 'origin'.
+
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (dev)
+$
+
+
+在windows上push了一版，同样也是要输入用户名和密码
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (dev)
+$ git push origin dev
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 337 bytes | 337.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/dextersmaker/gitskills.git
+   7c9fe59..d2aa4ea  dev -> dev
+
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (dev)
+$
+
+
+windows改了readme.txt然后push到origin
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (dev)
+$ git push origin dev
+fatal: TaskCanceledException encountered.
+   ▒▒ȡ▒▒һ▒▒▒▒▒▒
+Username for 'https://github.com': dextersmaker
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 367 bytes | 367.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/dextersmaker/gitskills.git
+   d2aa4ea..0a6d835  dev -> dev
+
+hadoop_szty@TEST01-THINK MINGW64 /f/learngit/gitskills (dev)
+
+
+
+
+linux同时也该了readme.txt，并尝试提交到origin
+➜  gitskills git:(dev) git push origin dev
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+To https://github.com/dextersmaker/gitskills.git
+ ! [rejected]        dev -> dev (fetch first)
+error: failed to push some refs to 'https://github.com/dextersmaker/gitskills.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+➜  gitskills git:(dev)
+
+
+git pull失败
+➜  gitskills git:(dev) git pull
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 1), reused 6 (delta 1), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+From https://github.com/dextersmaker/gitskills
+   7c9fe59..0a6d835  dev        -> origin/dev
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> dev
+
+➜  gitskills git:(dev)
+
+根据提示进行修改
+git branch --set-upstream-to=origin/dev dev
+
+
+➜  gitskills git:(dev) git branch --set-upstream-to=origin/dev dev
+Branch dev set up to track remote branch dev from origin.
+➜  gitskills git:(dev)
+
+但是执行后，没有任何变化
+
+再次执行git pull
+➜  gitskills git:(dev) git pull
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+➜  gitskills git:(dev) ✗
+
+
+
+➜  gitskills git:(dev) ✗ more README.md
+# gitskills
+# Creating a new branch is quick and simple.
+# add a comment
+# add a comment by dev.
+working...
+<<<<<<< HEAD
+edit by linux
+=======
+working by windows.
+>>>>>>> 0a6d8355e25b0a4797d5918716a8d6df8404c978
+➜  gitskills git:(dev) ✗
+
+
+
+查看远程库信息，使用git remote -v；
+
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+
+
+gitskills git:(master) git log --graph --pretty=oneline --abbrev-commit
+*   7833ccd update all
+|\
+| * 7c9fe59 update readme
+| * bdbdc12 add newfile.py
+* |   237abfa merge issue-102
+|\ \
+| * | aecd8f3 fixed a bug by issue-102
+|/ /
+* |   7b00630 fixed a bug 101 ,no merge
+|\ \
+| * | 8e02bb1 fixed a bug 101
+|/ /
+* |   2dba88d merge in noff
+|\ \
+| |/
+| * 4a3f6cb add a comment by dev.
+|/
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+|\ \
+| |/
+| * b99d1e7 update readme
+* | bee7c7f update readme master
+|/
+* a00d327 add a comment
+* c60f732 Initial commit
+~
+~
+
+
+
+
+使用 git rebase重新变基
+➜  gitskills git:(master) git rebase
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to refs/remotes/origin/master.
+➜  gitskills git:(master)
+
+试过了，没啥用
+➜  gitskills git:(master) git rebase
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to refs/remotes/origin/master.
+➜  gitskills git:(master) git log --graph --pretty=oneline --abbrev-commit
+➜  gitskills git:(master)
+
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+
+
+*   2f3033c merge readme.txt by linux
+|\
+| *   8f4e2bd update readme and resolve the conflict by linux
+| |\
+| | * 0a6d835 windows update the readme.txt
+| | * d2aa4ea add windows_file.py by win
+| * | 013e9e4 update readme.txt by linux
+| |/
+* |   7833ccd update all
+|\ \
+| |/
+| * 7c9fe59 update readme
+| * bdbdc12 add newfile.py
+* |   237abfa merge issue-102
+|\ \
+| * | aecd8f3 fixed a bug by issue-102
+|/ /
+* |   7b00630 fixed a bug 101 ,no merge
+|\ \
+| * | 8e02bb1 fixed a bug 101
+|/ /
+* |   2dba88d merge in noff
+|\ \
+| |/
+| * 4a3f6cb add a comment by dev.
+|/
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+:
+
+有5个未push到origin的commit
+➜  gitskills git:(master) git status
+On branch master
+Your branch is ahead of 'origin/master' by 5 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+
+
+git rebase时报了一个错
+➜  gitskills git:(master) git rebase
+First, rewinding head to replay your work on top of it...
+Applying: add windows_file.py by win
+Applying: windows update the readme.txt
+Using index info to reconstruct a base tree...
+M       README.md
+Falling back to patching base and 3-way merge...
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+error: Failed to merge in the changes.
+Patch failed at 0002 windows update the readme.txt
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+➜  gitskills git:(ac72965) ✗ ll
+total 12K
+-rw-r--r-- 1 coding coding  41 Aug 29 14:05 newfile.py
+-rw-r--r-- 1 coding coding 266 Aug 30 10:42 README.md
+-rw-r--r-- 1 coding coding  18 Aug 30 10:42 windows_file.py
+➜  gitskills git:(ac72965) ✗ more README.md
+# gitskills
+# Creating a new branch is quick and simple.
+# add a comment
+# add a comment by dev.
+<<<<<<< ac729653d7fb0b3ba199888d52241da2940afed7
+# fixed a bug.
+# fixed a bug by issue-102.
+=======
+working...
+working by windows.
+>>>>>>> windows update the readme.txt
+
+
+这里一直报一个patch的错：
+➜  gitskills git:(d0e8902) git rebase --continue
+Applying: windows update the readme.txt
+No changes - did you forget to use 'git add'?
+If there is nothing left to stage, chances are that something else
+already introduced the same changes; you might want to skip this patch.
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+
+
+
+
+dev上看的log
+* 66d81f2 add newfile3.txt
+* 3daa583 add newfile2.txt
+*   8f4e2bd update readme and resolve the conflict by linux
+|\
+| * 0a6d835 windows update the readme.txt
+| * d2aa4ea add windows_file.py by win
+* | 013e9e4 update readme.txt by linux
+|/
+* 7c9fe59 update readme
+* bdbdc12 add newfile.py
+* 4a3f6cb add a comment by dev.
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+|\ \
+| |/
+| * b99d1e7 update readme
+* | bee7c7f update readme master
+|/
+* a00d327 add a comment
+* c60f732 Initial commit
+(END)
+
+
+
+
+
+
+
+在master上看到的log
+*   2f3033c merge readme.txt by linux
+|\
+| *   8f4e2bd update readme and resolve the conflict by linux
+| |\
+| | * 0a6d835 windows update the readme.txt
+| | * d2aa4ea add windows_file.py by win
+| * | 013e9e4 update readme.txt by linux
+| |/
+* |   7833ccd update all
+|\ \
+| |/
+| * 7c9fe59 update readme
+| * bdbdc12 add newfile.py
+* |   237abfa merge issue-102
+|\ \
+| * | aecd8f3 fixed a bug by issue-102
+|/ /
+* |   7b00630 fixed a bug 101 ,no merge
+|\ \
+| * | 8e02bb1 fixed a bug 101
+|/ /
+* |   2dba88d merge in noff
+|\ \
+| |/
+| * 4a3f6cb add a comment by dev.
+|/
+*   7c022f0 master standard
+|\
+| * 29af735 add a comment in feature1
+| * 6c89fed resolve conflict feature1
+* | f76941f update readme add a comment test
+* |   31fa792 resolve conflict
+
+
+
+master merge了dev之后：
+*   7b3dff2 merge new dev
+|\
+| * 66d81f2 add newfile3.txt
+| * 3daa583 add newfile2.txt
+* |   2f3033c merge readme.txt by linux
+|\ \
+| |/
+| *   8f4e2bd update readme and resolve the conflict by linux
+| |\
+| | * 0a6d835 windows update the readme.txt
+| | * d2aa4ea add windows_file.py by win
+| * | 013e9e4 update readme.txt by linux
+| |/
+* |   7833ccd update all
+|\ \
+| |/
+| * 7c9fe59 update readme
+| * bdbdc12 add newfile.py
+* |   237abfa merge issue-102
+|\ \
+| * | aecd8f3 fixed a bug by issue-102
+|/ /
+* |   7b00630 fixed a bug 101 ,no merge
+|\ \
+| * | 8e02bb1 fixed a bug 101
+|/ /
+* |   2dba88d merge in noff
+|\ \
+| |/
+| * 4a3f6cb add a comment by dev.
+|/
+*   7c022f0 master standard
+:
+
+
+执行了git rebase
+➜  gitskills git:(master) git rebase
+First, rewinding head to replay your work on top of it...
+Applying: add newfile2.txt
+Applying: add newfile3.txt
+➜  gitskills git:(master)
+
+可以看到把dev的commit 写到了master里面去了
+* 9f214d0 add newfile3.txt
+* 0e6e218 add newfile2.txt
+*   2f3033c merge readme.txt by linux
+|\
+| *   8f4e2bd update readme and resolve the conflict by linux
+| |\
+| | * 0a6d835 windows update the readme.txt
+| | * d2aa4ea add windows_file.py by win
+| * | 013e9e4 update readme.txt by linux
+| |/
+* |   7833ccd update all
+|\ \
+| |/
+| * 7c9fe59 update readme
+| * bdbdc12 add newfile.py
+* |   237abfa merge issue-102
+
+
+Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针（跟分支很像对不对？但是分支可以移动，标签不能移动），所以，创建和删除标签都是瞬间完成的。
+
+
+
+
+* 9f214d0 add newfile3.txt
+* 0e6e218 add newfile2.txt
+*   2f3033c merge readme.txt by linux
+|\
+| *   8f4e2bd update readme and resolve the conflict by linux
+| |\
+| | * 0a6d835 windows update the readme.txt
+| | * d2aa4ea add windows_file.py by win
+| * | 013e9e4 update readme.txt by linux
+| |/
+* |   7833ccd update all
+创建标签
+
+➜  gitskills git:(master) git tag v1.0
+➜  gitskills git:(master) git tag
+v1.0
+➜  gitskills git:(master)
+
+默认标签是打在最新提交的commit上的
+
+
+对之前的commit点打标签
+git tag v0.9 2f3033c
+
+➜  gitskills git:(master) git tag v0.9 2f3033c
+➜  gitskills git:(master) git tag
+v0.9
+v1.0
+➜  gitskills git:(master)
+
+
+查看标签信息
+git show v0.9
+
+commit 2f3033ca96ffe075cdac750170807f2e1cca2fb6
+Merge: 7833ccd 8f4e2bd
+Author: dexterdead <1039384073@qq.com>
+Date:   Thu Aug 30 10:40:30 2018 +0000
+
+    merge readme.txt by linux
+
+diff --cc README.md
+index 7f92066,83e53a6..2282018
+--- a/README.md
++++ b/README.md
+@@@ -2,5 -2,6 +2,8 @@@
+  # Creating a new branch is quick and simple.
+  # add a comment
+  # add a comment by dev.
+ +# fixed a bug.
+ +# fixed a bug by issue-102.
++ working...
++ edit by linux
++ working by windows.
+(END)
+
+
+打标签加上描述
+git tag -a v0.1 -m "version 0.1 released" 1094adb
+
+
+
+
+
+➜  gitskills git:(master) git tag -a v0.8 -m 'add a tag 7833ccd' 7833ccd
+➜  gitskills git:(master) git tag
+v0.8
+v0.9
+v1.0
+
+
+tag v0.8
+Tagger: dexterdead <1039384073@qq.com>
+Date:   Thu Aug 30 11:47:54 2018 +0000
+
+add a tag 7833ccd
+
+commit 7833ccd6b701907774f02044028db98e292b33aa
+Merge: 237abfa 7c9fe59
+Author: dexterdead <1039384073@qq.com>
+Date:   Wed Aug 29 14:06:22 2018 +0000
+
+    update all
+
+(END)
+
+
+删除标签
+git tag -d v0.1
+
+➜  gitskills git:(master) git tag -d v0.8
+Deleted tag 'v0.8' (was e55ed5f)
+
+
+推送标签到远程
+git push origin <tagname>
+
+感觉如果分支名和标签名一致，就会有问题
+git push origin v0.9
+
+➜  gitskills git:(master) git push origin v0.9
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/dextersmaker/gitskills.git
+ * [new tag]         v0.9 -> v0.9
+➜  gitskills git:(master)
+
+
+git push origin --tags
+
+
+
+➜  gitskills git:(master) git tag v0.7 013e9e4
+➜  gitskills git:(master) git tag
+v0.7
+v0.9
+v1.0
+➜  gitskills git:(master)
+
+一次性推送所有的标签
+git push origin --tags
+
+
+➜  gitskills git:(master) git push origin --tags
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+Counting objects: 6, done.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 579 bytes | 0 bytes/s, done.
+Total 6 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), done.
+To https://github.com/dextersmaker/gitskills.git
+ * [new tag]         v0.7 -> v0.7
+ * [new tag]         v1.0 -> v1.0
+➜  gitskills git:(master)
+
+
+
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+git tag -d v0.7
+
+使用push来删除远程的tag
+➜  gitskills git:(master) git tag -d v0.7
+Deleted tag 'v0.7' (was 013e9e4)
+➜  gitskills git:(master) git push origin :refs/tags/v0.7
+Username for 'https://github.com': dextersmaker
+Password for 'https://dextersmaker@github.com':
+To https://github.com/dextersmaker/gitskills.git
+ - [deleted]         v0.7
+➜  gitskills git:(master)
+
+
+
+在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+
+忽略文件的原则是：
+
+忽略操作系统自动生成的文件，比如缩略图等；
+忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如Java编译产生的.class文件；
+忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。
+
+
+增加了一个.class文件
+➜  gitskills git:(master) vi Hello.class
+➜  gitskills git:(master) ✗ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        Hello.class
+
+nothing added to commit but untracked files present (use "git add" to track)
+➜  gitskills git:(master) ✗
+
+
+➜  gitskills git:(master) ✗ vi jdbc.conf
+➜  gitskills git:(master) ✗ vi .gitignore
+➜  gitskills git:(master) ✗ ll
+total 28K
+-rw-r--r-- 1 coding coding   5 Aug 30 12:07 Hello.class
+-rw-r--r-- 1 coding coding   5 Aug 30 12:09 jdbc.conf
+-rw-r--r-- 1 coding coding  12 Aug 30 11:14 newfile2.txt
+-rw-r--r-- 1 coding coding  11 Aug 30 11:14 newfile3.txt
+-rw-r--r-- 1 coding coding  41 Aug 29 14:05 newfile.py
+-rw-r--r-- 1 coding coding 185 Aug 30 11:11 README.md
+-rw-r--r-- 1 coding coding  18 Aug 30 10:42 windows_file.py
+➜  gitskills git:(master) ✗
+➜  gitskills git:(master) ✗ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .gitignore
+
+nothing added to commit but untracked files present (use "git add" to track)
+➜  gitskills git:(master) ✗
+
+
+把.gitignore文件提交之后就可以屏蔽一些不用提交的文件了
+➜  gitskills git:(master) ✗ git add .gitignore
+➜  gitskills git:(master) ✗ git commit -m 'add ignore file'
+[master e0a2f5a] add ignore file
+ 1 file changed, 5 insertions(+)
+ create mode 100644 .gitignore
+➜  gitskills git:(master) git status
+On branch master
+Your branch is ahead of 'origin/master' by 3 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+➜  gitskills git:(master)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
